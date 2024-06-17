@@ -1,7 +1,7 @@
 import type { StorefrontQueries } from "@shopify/storefront-api-client";
 
 import { cache } from "@solidjs/router";
-import getServerContext from "~/server/context";
+import { getHydrogenContext, getLocale } from "~/server/context";
 
 function withLocaleVariables<Query extends keyof StorefrontQueries>(
   locale: I18nLocale,
@@ -34,10 +34,11 @@ const storefront = {
         >
       ) => {
         "use server";
-        const context = getServerContext();
+        const hydrogen = getHydrogenContext();
+        const locale = getLocale();
         // @ts-expect-error
-        return context.storefront.request(queryString, {
-          variables: withLocaleVariables(context.locale, variables),
+        return hydrogen.storefront.request(queryString, {
+          variables: withLocaleVariables(locale, variables),
         });
       },
       queryString.toString()

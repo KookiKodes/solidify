@@ -5,7 +5,7 @@ import "@total-typescript/ts-reset";
 import type {
   LanguageCode,
   CountryCode,
-} from "~/storefront/types/storefront.types";
+} from "~/hydrogen/storefront/types/storefront.types";
 
 declare global {
   interface Env {

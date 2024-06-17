@@ -1,13 +1,13 @@
 // @refresh reload
 import { createHandler, StartServer } from "@solidjs/start/server";
-import getServerContext from "./server/context";
+import { getLocale } from "./server/context";
 
-export default createHandler((_) => {
-  const context = getServerContext();
+export default createHandler(() => {
+  const locale = getLocale();
   return (
     <StartServer
       document={({ assets, children, scripts }) => (
-        <html lang={context.locale.language.toLocaleLowerCase()}>
+        <html lang={locale.language.toLocaleLowerCase()}>
           <head>
             <meta charset="utf-8" />
             <meta

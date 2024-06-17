@@ -11,7 +11,7 @@ export default {
       apiType: ApiType.Storefront,
       apiVersion: LATEST_API_VERSION,
       documents: ["./src/**/*.{js,ts,jsx,tsx}"],
-      outputDir: "./src/storefront/types",
+      outputDir: "./src/hydrogen/storefront/types",
     }),
   },
 } as IGraphQLConfig;

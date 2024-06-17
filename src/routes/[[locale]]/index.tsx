@@ -1,7 +1,6 @@
-import { A, createAsync, RouteDefinition } from "@solidjs/router";
+import { createAsync, RouteDefinition } from "@solidjs/router";
 import { Title } from "@solidjs/meta";
-import storefront from "~/storefront";
-import getServerContext from "~/server/context";
+import storefront from "~/hydrogen/storefront";
 import { Show } from "solid-js";
 
 const getShopQuery = `#graphql
@@ -30,27 +29,6 @@ export default function Home() {
       <Show when={data()?.data}>
         <Title>Home Page | {data()?.data?.shop?.name}</Title>
       </Show>
-      <h1 class="max-6-xs text-6xl text-sky-700 font-thin uppercase my-16">
-        {JSON.stringify(data()?.data)}
-      </h1>
-      <p class="mt-8">
-        Visit{" "}
-        <a
-          href="https://solidjs.com"
-          target="_blank"
-          class="text-sky-600 hover:underline"
-        >
-          solidjs.com
-        </a>{" "}
-        to learn how to build Solid apps.
-      </p>
-      <p class="my-4">
-        <span>Home</span>
-        {" - "}
-        <A href="/about" class="text-sky-600 hover:underline">
-          About Page
-        </A>{" "}
-      </p>
     </main>
   );
 }
