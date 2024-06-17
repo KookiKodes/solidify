@@ -8,5 +8,5 @@ export default defineConfig({
   vite: {
     plugins: [codegen()],
   },
-  middleware: "./src/server/middleware.ts",
+  middleware: "./src/server/index.ts",
 });

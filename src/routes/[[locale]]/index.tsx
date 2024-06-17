@@ -1,7 +1,8 @@
 import { createAsync, RouteDefinition } from "@solidjs/router";
 import { Title } from "@solidjs/meta";
-import storefront from "~/hydrogen/storefront";
 import { Show } from "solid-js";
+
+import storefront from "~/hydrogen/storefront";
 
 const getShopQuery = `#graphql
   query GetShop($language: LanguageCode!, $country: CountryCode!) @inContext(language: $language, country: $country){
