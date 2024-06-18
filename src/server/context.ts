@@ -1,5 +1,6 @@
 "use server";
 import { getRequestEvent } from "solid-js/web";
+import { getCookie } from "vinxi/http";
 
 export function getHydrogenContext() {
   const event = getRequestEvent();
@@ -14,7 +15,9 @@ export function getLocale() {
   if (!event) {
     throw new Error("No request event");
   }
-  return event.locals.locale;
+  if (event.locals.locale) return event.locals.locale;
+  const localeCookie = JSON.parse(getCookie("locale")!) as I18nLocale;
+  return localeCookie;
 }
 
 export function getEnv() {

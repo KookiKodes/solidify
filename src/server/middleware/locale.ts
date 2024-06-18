@@ -1,8 +1,11 @@
-import { FetchEvent } from "@solidjs/start/server";
+import type { FetchEvent } from "@solidjs/start/server";
+import { setCookie } from "vinxi/http";
 
 export function createLocaleContext(event: FetchEvent) {
-  if (event.locals.locale) return;
-  event.locals.locale = getLocaleFromRequest(event.request);
+  if (event.request.url.includes("/_server")) return;
+  const locale = getLocaleFromRequest(event.request);
+  event.locals.locale = locale;
+  setCookie("locale", JSON.stringify(locale));
 }
 
 declare module "@solidjs/start/server" {
@@ -21,7 +24,9 @@ function getLocaleFromRequest(request: Request): I18nLocale {
   let [language, country]: I18nFromUrl = ["EN", "US"] as I18nFromUrl;
 
   if (/^[A-Z]{2}-[A-Z]{2}$/i.test(firstPathPart)) {
-    pathPrefix = "/" + firstPathPart;
+    pathPrefix = `/${firstPathPart
+      .substring(0, 2)
+      .toLowerCase()}-${firstPathPart.substring(3, 5)}`;
     [language, country] = firstPathPart.split("-") as I18nFromUrl;
   }
 
