@@ -1,7 +1,7 @@
 import type { FetchEvent } from "@solidjs/start/server";
 import { z } from "zod";
 
-export const createEnvContext = (event: FetchEvent) => {
+export const createEnvContext = async (event: FetchEvent) => {
   if (event.locals.env) return;
   const env = ENV.parse({
     SESSION_SECRET: process.env.SESSION_SECRET,

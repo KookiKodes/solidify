@@ -1,7 +1,7 @@
 import type { FetchEvent } from "@solidjs/start/server";
 import { setCookie } from "vinxi/http";
 
-export function createLocaleContext(event: FetchEvent) {
+export async function createLocaleContext(event: FetchEvent) {
   if (event.request.url.includes("/_server")) return;
   const locale = getLocaleFromRequest(event.request);
   event.locals.locale = locale;

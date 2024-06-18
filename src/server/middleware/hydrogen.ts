@@ -1,7 +1,7 @@
 import type { FetchEvent } from "@solidjs/start/server";
 import { createStorefrontApiClient } from "@shopify/storefront-api-client";
 
-export const createHydrogenContext = (event: FetchEvent) => {
+export const createHydrogenContext = async (event: FetchEvent) => {
   if (event.locals.hydrogen) return;
   const env = event.locals.env;
 
