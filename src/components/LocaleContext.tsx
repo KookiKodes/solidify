@@ -130,7 +130,7 @@ export const A = (props: AnchorProps) => {
     if (hrefProps.href.startsWith(`/${params.locale}`)) return hrefProps.href;
 
     // If the href does not start with the current locale, prepend it to the href
-    return `/${params.locale}${hrefProps.href}`;
+    return `/${params.locale}${hrefProps.href === "/" ? "" : hrefProps.href}`;
   });
 
   // Return the RouterAnchor component with the appropriate href and hreflang attributes
