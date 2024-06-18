@@ -53,9 +53,6 @@ importers:
       vinxi:
         specifier: ^0.3.11
         version: 0.3.11(@opentelemetry/api@1.9.0)(@types/node@20.14.2)(ioredis@5.4.1)(terser@5.31.1)
-      worktop:
-        specifier: ^0.7.3
-        version: 0.7.3
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -66,6 +63,9 @@ importers:
       '@shopify/api-codegen-preset':
         specifier: ^1.0.0
         version: 1.0.0(@types/node@20.14.2)
+      '@types/node':
+        specifier: ^20.12.7
+        version: 20.14.2
       graphql-config:
         specifier: ^5.0.3
         version: 5.0.3(@types/node@20.14.2)(graphql@16.8.2)
@@ -3154,10 +3154,6 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
-  regexparam@2.0.2:
-    resolution: {integrity: sha512-A1PeDEYMrkLrfyOwv2jwihXbo9qxdGD3atBYQA9JJgreAx8/7rC6IUkWOw2NQlOxLp2wL0ifQbh1HuidDfYA6w==}
-    engines: {node: '>=8'}
-
   relay-runtime@12.0.0:
     resolution: {integrity: sha512-QU6JKr1tMsry22DXNy9Whsq5rmvwr3LSZiiWV/9+DFpuTWvp+WFhobWMc8TC4OjKFfNhEZy7mOiqUAn5atQtug==}
 
@@ -3806,10 +3802,6 @@ packages:
 
   widest-line@4.0.1:
     resolution: {integrity: sha512-o0cyEG0e8GPzT4iGHphIOh0cJOV8fivsXxddQasHPHfoZf1ZexrfeA21w2NaEN1RHE+fXlfISmOE8R9N3u3Qig==}
-    engines: {node: '>=12'}
-
-  worktop@0.7.3:
-    resolution: {integrity: sha512-WBHP1hk8pLP7ahAw13fugDWcO0SUAOiCD6DHT/bfLWoCIA/PL9u7GKdudT2nGZ8EGR1APbGCAI6ZzKG1+X+PnQ==}
     engines: {node: '>=12'}
 
   wrap-ansi@6.2.0:
@@ -7351,8 +7343,6 @@ snapshots:
 
   regenerator-runtime@0.14.1: {}
 
-  regexparam@2.0.2: {}
-
   relay-runtime@12.0.0:
     dependencies:
       '@babel/runtime': 7.24.7
@@ -8065,10 +8055,6 @@ snapshots:
   widest-line@4.0.1:
     dependencies:
       string-width: 5.1.2
-
-  worktop@0.7.3:
-    dependencies:
-      regexparam: 2.0.2
 
   wrap-ansi@6.2.0:
     dependencies:

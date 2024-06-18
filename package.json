@@ -23,7 +23,6 @@
     "tailwindcss": "^3.4.3",
     "type-fest": "^4.20.1",
     "vinxi": "^0.3.11",
-    "worktop": "^0.7.3",
     "zod": "^3.23.8"
   },
   "engines": {
@@ -32,6 +31,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
     "@shopify/api-codegen-preset": "^1.0.0",
+    "@types/node": "^20.12.7",
     "graphql-config": "^5.0.3",
     "vite-plugin-graphql-codegen": "^3.3.8"
   }
