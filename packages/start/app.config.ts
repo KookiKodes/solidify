@@ -5,6 +5,7 @@ import generateShopifyShopLocales from "vite-plugin-generate-shopify-shop-locale
 export default defineConfig({
   server: {
     preset: "vercel",
+    routeRules: {},
   },
   vite: {
     plugins: [codegen(), generateShopifyShopLocales()],
