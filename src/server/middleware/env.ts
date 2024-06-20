@@ -5,12 +5,13 @@ export const createEnvContext = async (event: FetchEvent) => {
   if (event.locals.env) return;
   const env = ENV.parse({
     SESSION_SECRET: process.env.SESSION_SECRET,
-    PUBLIC_STORE_DOMAIN: process.env.PUBLIC_STORE_DOMAIN,
-    STOREFRONT_API_VERSION: process.env.STOREFRONT_API_VERSION,
-    PUBLIC_STOREFRONT_ACCESS_TOKEN: process.env.PUBLIC_STOREFRONT_ACCESS_TOKEN,
-    PRIVATE_STOREFRONT_ACCESS_TOKEN:
-      process.env.PRIVATE_STOREFRONT_ACCESS_TOKEN,
-    PUBLIC_STOREFRONT_ID: process.env.PUBLIC_STOREFRONT_ID,
+    SHOPIFY_PUBLIC_STORE_DOMAIN: process.env.SHOPIFY_PUBLIC_STORE_DOMAIN,
+    SHOPIFY_STOREFRONT_API_VERSION: process.env.SHOPIFY_STOREFRONT_API_VERSION,
+    SHOPIFY_PUBLIC_STOREFRONT_ACCESS_TOKEN:
+      process.env.SHOPIFY_PUBLIC_STOREFRONT_ACCESS_TOKEN,
+    SHOPIFY_PRIVATE_STOREFRONT_ACCESS_TOKEN:
+      process.env.SHOPIFY_PRIVATE_STOREFRONT_ACCESS_TOKEN,
+    SHOPIFY_PUBLIC_STOREFRONT_ID: process.env.SHOPIFY_PUBLIC_STOREFRONT_ID,
     NODE_ENV: process.env.NODE_ENV,
   });
 
@@ -19,15 +20,15 @@ export const createEnvContext = async (event: FetchEvent) => {
 
 const ENV = z.object({
   SESSION_SECRET: z.string(),
-  PUBLIC_STORE_DOMAIN: z
+  SHOPIFY_PUBLIC_STORE_DOMAIN: z
     .string()
     .refine((val) => val.includes(".myshopify.com"), {
       message: "Invalid shopify store domain!",
     }),
-  STOREFRONT_API_VERSION: z.enum(["2024-04"]),
-  PUBLIC_STOREFRONT_ACCESS_TOKEN: z.string(),
-  PRIVATE_STOREFRONT_ACCESS_TOKEN: z.string().optional(),
-  PUBLIC_STOREFRONT_ID: z.string().optional(),
+  SHOPIFY_STOREFRONT_API_VERSION: z.enum(["2024-04"]),
+  SHOPIFY_PUBLIC_STOREFRONT_ACCESS_TOKEN: z.string(),
+  SHOPIFY_PRIVATE_STOREFRONT_ACCESS_TOKEN: z.string().optional(),
+  SHOPIFY_PUBLIC_STOREFRONT_ID: z.string().optional(),
   NODE_ENV: z.enum(["development", "production"]),
 });
 

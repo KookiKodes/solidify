@@ -9,11 +9,11 @@ declare global {
   interface Env {
     NODE_ENV: "development" | "production";
     SESSION_SECRET: string;
-    STOREFRONT_API_VERSION: string;
-    PUBLIC_STORE_DOMAIN: string;
-    PUBLIC_STOREFRONT_ID: string;
-    PUBLIC_STOREFRONT_ACCESS_TOKEN: string;
-    PRIVATE_STOREFRONT_ACCESS_TOKEN: string;
+    SHOPIFY_STOREFRONT_API_VERSION: string;
+    SHOPIFY_PUBLIC_STORE_DOMAIN: string;
+    SHOPIFY_PUBLIC_STOREFRONT_ID: string;
+    SHOPIFY_PUBLIC_STOREFRONT_ACCESS_TOKEN: string;
+    SHOPIFY_PRIVATE_STOREFRONT_ACCESS_TOKEN: string;
   }
 
   namespace NodeJS {
@@ -23,6 +23,16 @@ declare global {
   type I18nLocale = {
     language: LanguageCode;
     country: CountryCode;
-    pathPrefix: string;
+    pathPrefix: `/${Lowercase<LanguageCode>}-${CountryCode}` | "";
+  };
+}
+
+declare module "virtual:shop-locales" {
+  type Locale = {
+    languageCode: string;
+  };
+  export const shopLocales: {
+    defaultLocale: Locale;
+    availableLocales: string[];
   };
 }
