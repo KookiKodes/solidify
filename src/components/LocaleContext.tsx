@@ -3,6 +3,8 @@ import {
   A as RouterAnchor,
   cache,
   createAsync,
+  redirect,
+  useLocation,
   useParams,
 } from "@solidjs/router";
 import {
@@ -36,10 +38,23 @@ const LocaleContext = createContext<Accessor<I18nLocale | undefined>>();
  * @param {string=} paramLocale - An optional string representing the desired locale.
  * @returns The current locale as an `Accessor` object.
  */
-const fetchLocale = cache(async (paramLocale?: string) => {
+const fetchLocale = cache(async (path: string, paramLocale?: string) => {
   "use server";
   const locale = getLocale();
-  if (!paramLocale) return locale;
+
+  function notCorrectPathLocale() {
+    return (
+      !paramLocale &&
+      locale.pathPrefix !== "" &&
+      !path.startsWith(locale.pathPrefix)
+    );
+  }
+
+  if (notCorrectPathLocale()) {
+    throw redirect(`${locale.pathPrefix}${path === "/" ? "" : path}`, {
+      statusText: "Redirecting to your preferred shop view",
+    });
+  }
   if (
     paramLocale &&
     paramLocale.toLowerCase() !==
@@ -61,7 +76,10 @@ const fetchLocale = cache(async (paramLocale?: string) => {
  */
 export const LocaleProvider = (props: { children?: JSX.Element }) => {
   const params = useParams();
-  const locale = createAsync(async () => fetchLocale(params.locale));
+  const location = useLocation();
+  const locale = createAsync(async () =>
+    fetchLocale(location.pathname, params.locale)
+  );
   return (
     <LocaleContext.Provider value={locale}>
       <InternalLocaleProvider>{props.children}</InternalLocaleProvider>
