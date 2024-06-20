@@ -6,10 +6,10 @@ export const createHydrogenContext = async (event: FetchEvent) => {
   const env = event.locals.env;
 
   const storefront = createStorefrontApiClient({
-    storeDomain: env.PUBLIC_STORE_DOMAIN,
-    apiVersion: env.STOREFRONT_API_VERSION,
-    publicAccessToken: env.PUBLIC_STOREFRONT_ACCESS_TOKEN,
-    privateAccessToken: env.PRIVATE_STOREFRONT_ACCESS_TOKEN,
+    storeDomain: env.SHOPIFY_PUBLIC_STORE_DOMAIN,
+    apiVersion: env.SHOPIFY_STOREFRONT_API_VERSION,
+    publicAccessToken: env.SHOPIFY_PUBLIC_STOREFRONT_ACCESS_TOKEN,
+    privateAccessToken: env.SHOPIFY_PRIVATE_STOREFRONT_ACCESS_TOKEN,
   });
 
   event.locals.hydrogen = {
