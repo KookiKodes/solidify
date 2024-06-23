@@ -1,6 +1,6 @@
 import { defineConfig } from "@solidjs/start/config";
 import codegen from "vite-plugin-graphql-codegen";
-import generateShopifyShopLocales from "vite-plugin-generate-shopify-shop-locales";
+import generateShopifyShopLocales from "@solidifront/vite-plugin-shopify-locales";
 
 export default defineConfig({
   server: {

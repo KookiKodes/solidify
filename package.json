@@ -1,12 +1,12 @@
 {
-  "name": "solidify",
+  "name": "solidifront-monorepo",
   "version": "1.0.0",
   "description": "A collection of tools for building a Hydrogen Storefront using the Solid Start Metaframework",
   "main": "index.js",
   "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "lint": "turbo lint",
+    "dev": "dotenv -- turbo dev",
+    "build": "dotenv -- turbo build",
+    "lint": "dotenv -- turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "check-types": "tsc --noEmit"
@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
+    "dotenv-cli": "github:motdotla/dotenv-cli",
     "eslint": "^9.5.0",
     "prettier": "^3.3.2",
     "turbo": "^2.0.4"

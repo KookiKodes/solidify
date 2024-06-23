@@ -1,5 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "SHOPIFY_PUBLIC_STORE_DOMAIN",
+    "SHOPIFY_STOREFRONT_API_VERSION",
+    "SHOPIFY_PUBLIC_STOREFRONT_ACCESS_TOKEN"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
