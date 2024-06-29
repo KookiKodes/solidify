@@ -1,9 +1,6 @@
 /// <reference types="@solidjs/start/env" />
 
-import type {
-  LanguageCode,
-  CountryCode,
-} from "~/hydrogen/storefront/types/storefront.types";
+import type { Locale } from "@solidifront/vite-plugin-shopify-locales/generated";
 
 declare global {
   interface Env {
@@ -20,19 +17,7 @@ declare global {
     interface ProcessEnv extends Env {}
   }
 
-  type I18nLocale = {
-    language: LanguageCode;
-    country: CountryCode;
-    pathPrefix: `/${Lowercase<LanguageCode>}-${CountryCode}` | "";
-  };
-}
-
-declare module "virtual:shop-locales" {
-  type Locale = {
-    languageCode: string;
-  };
-  export const shopLocales: {
-    defaultLocale: Locale;
-    availableLocales: string[];
+  type I18nLocale = Locale & {
+    pathPrefix: `/${Lowercase<Locale["language"]>}-${Locale["country"]}` | "";
   };
 }

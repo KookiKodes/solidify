@@ -11,7 +11,7 @@
     "allowJs": true,
     "noEmit": true,
     "strict": true,
-    "types": ["vinxi/types/client", "./src/hydrogen/storefront/types"],
+    "types": ["vinxi/types/client"],
     "isolatedModules": true,
     "paths": {
       "~/*": ["./src/*"]

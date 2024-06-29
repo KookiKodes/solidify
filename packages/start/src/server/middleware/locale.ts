@@ -2,17 +2,16 @@ import type { FetchEvent } from "@solidjs/start/server";
 import { getCookie, getHeader, setCookie } from "vinxi/http";
 import { resolveAcceptLanguage } from "resolve-accept-language";
 // import locale from "locale";
-import { countries } from "@solidifront/vite-plugin-shopify-locales/generated";
-import { CountryCode } from "~/hydrogen/storefront/types/storefront.types";
+import {
+  countries,
+  type Locale,
+} from "@solidifront/vite-plugin-shopify-locales/generated";
+
+type LowerLanguage = Lowercase<Locale["language"]>;
 
 export async function createLocaleContext(event: FetchEvent) {
   if (event.request.url.includes("/_server")) return;
-  const locale = {
-    country: countries.default.country as I18nLocale["country"],
-    language: countries.default.language as I18nLocale["language"],
-    pathPrefix: "",
-  } as const;
-  console.log(countries);
+  const locale = getLocaleFromRequest();
   event.locals.locale = locale;
   setCookie("locale", JSON.stringify(locale));
 }
@@ -23,60 +22,52 @@ declare module "@solidjs/start/server" {
   }
 }
 
-// function getPathPrefix(
-//   defaultLocale: typeof shopLocales.defaultLocale,
-//   locale: Pick<I18nLocale, "country" | "language">
-// ): I18nLocale["pathPrefix"] {
-//   if (
-//     defaultLocale.countryCode === locale.country &&
-//     defaultLocale.languageCode === locale.language.toUpperCase()
-//   )
-//     return "";
-//   return `/${
-//     locale.language.toLowerCase() as Lowercase<I18nLocale["language"]>
-//   }-${locale.country}`;
-// }
+function getPathPrefix(
+  defaultLocale: typeof countries.default,
+  locale: Locale
+): I18nLocale["pathPrefix"] {
+  if (defaultLocale.isoCode === locale.isoCode) return "";
+  return `/${locale.isoCode}`;
+}
 
-// function getLocaleFromRequest(): I18nLocale {
-//   type I18nFromUrl = [I18nLocale["language"], I18nLocale["country"]];
+function getLocaleFromRequest(): I18nLocale {
+  type I18nFromUrl = [LowerLanguage, Locale["country"]];
 
-//   let pathPrefix: "" = "";
-//   let [language, country]: I18nFromUrl = [
-//     shopLocales.defaultLocale.languageCode,
-//     shopLocales.defaultLocale.countryCode,
-//   ] as I18nFromUrl;
+  let [language, country]: I18nFromUrl = [
+    countries.default.language.toLowerCase() as LowerLanguage,
+    countries.default.country,
+  ];
 
-//   // If local cookie is present, use it. Will use this later to allow the user to change the locale.
-//   const cookie = getCookie("locale");
-//   if (cookie) return JSON.parse(cookie) as I18nLocale;
+  // If local cookie is present, use it. Will use this later to allow the user to change the locale.
+  const cookie = getCookie("locale");
+  if (cookie) return JSON.parse(cookie) as I18nLocale;
 
-//   const userLanguages = getHeader("accept-language");
-//   if (!userLanguages)
-//     return {
-//       language,
-//       country,
-//       pathPrefix,
-//     };
+  const userLanguages = getHeader("accept-language");
+  if (!userLanguages)
+    return {
+      ...countries.default,
+      pathPrefix: "",
+    };
 
-//   const locale = resolveAcceptLanguage(
-//     userLanguages,
-//     shopLocales.availableLocales,
-//     `${shopLocales.defaultLocale.languageCode}-${shopLocales.defaultLocale.countryCode}`,
-//     {
-//       matchCountry: true,
-//     }
-//   );
+  const locale = resolveAcceptLanguage(
+    userLanguages,
+    Object.values(countries).map((locale) => locale.isoCode),
+    countries.default.isoCode,
+    {
+      matchCountry: true,
+    }
+  );
 
-//   [language, country] = locale.split("-") as I18nFromUrl;
+  if (locale === countries.default.isoCode)
+    return {
+      pathPrefix: "",
+      ...countries.default,
+    };
 
-//   // If no accept-language header is present, use the default locale.
+  const matchingLocale = countries[`/${locale}`];
 
-//   return {
-//     language: language.toUpperCase() as I18nLocale["language"],
-//     country,
-//     pathPrefix: getPathPrefix(shopLocales.defaultLocale, {
-//       language,
-//       country,
-//     }),
-//   };
-// }
+  return {
+    pathPrefix: getPathPrefix(countries.default, matchingLocale),
+    ...matchingLocale,
+  };
+}
